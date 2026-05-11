@@ -228,17 +228,11 @@ function getProfile() {
   };
 }
 
-function normalizeLineId(value) {
-  const clean = value.trim();
-  if (!clean) return "";
-  return clean.startsWith("@") ? clean : `@${clean}`;
-}
-
 function contactBlock() {
   const profile = getProfile();
   const name = profile.name || "請填業務姓名";
   const phone = profile.phone || "請填專員電話";
-  const line = normalizeLineId(profile.line) || "請填 LINE ID";
+  const line = profile.line || "請填 LINE ID";
 
   return [
     "普特絲南桃園展示中心",
