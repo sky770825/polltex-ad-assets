@@ -161,6 +161,16 @@ const ads = [
   }
 ];
 
+const filterGroups = {
+  all: [],
+  family: ["親子", "孩子", "兒童", "家人", "安心"],
+  senior: ["長輩", "爸媽", "舒適", "呼吸"],
+  pet: ["毛孩", "寵物", "靠窗"],
+  breeze: ["通風", "透氣", "涼爽", "空氣交換", "循環"],
+  mosquito: ["蚊", "小黑蚊", "蚊蟲", "防蚊"],
+  air: ["空污", "廢氣", "煙味", "PM2.5", "灰塵", "粉塵"]
+};
+
 const icons = {
   download:
     '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11M7 10l5 5 5-5M5 21h14"/></svg>',
@@ -180,12 +190,18 @@ const adGrid = document.querySelector("#adGrid");
 const toast = document.querySelector("#toast");
 const profileStatus = document.querySelector("#profileStatus");
 const clearProfile = document.querySelector("#clearProfile");
+const assetSearch = document.querySelector("#assetSearch");
+const assetCount = document.querySelector("#assetCount");
+const emptyState = document.querySelector("#emptyState");
+const filterButtons = [...document.querySelectorAll("[data-filter]")];
 const lightbox = document.querySelector("#imageLightbox");
 const lightboxImage = document.querySelector("#lightboxImage");
 const lightboxCaption = document.querySelector("#lightboxCaption");
 const closeLightbox = document.querySelector("#closeLightbox");
+const backTop = document.querySelector("#backTop");
 
 const profileStorageKey = "polltex-agent-profile";
+let activeFilter = "all";
 
 function storageGet(key) {
   try {
@@ -256,8 +272,35 @@ function composeCopy(ad) {
   ].join("\n").replace(/\n{3,}/g, "\n\n");
 }
 
-function renderAds() {
-  adGrid.innerHTML = ads
+function adSearchText(ad) {
+  return [
+    ad.title,
+    ad.subtitle,
+    ad.format,
+    ...ad.body,
+    ...ad.tags
+  ].join(" ").toLowerCase();
+}
+
+function getFilteredAds() {
+  const searchTerm = assetSearch.value.trim().toLowerCase();
+  const filterTerms = filterGroups[activeFilter] || [];
+
+  return ads.filter((ad) => {
+    const haystack = adSearchText(ad);
+    const matchesSearch = !searchTerm || haystack.includes(searchTerm);
+    const matchesFilter = activeFilter === "all" || filterTerms.some((term) => haystack.includes(term.toLowerCase()));
+    return matchesSearch && matchesFilter;
+  });
+}
+
+function updateAssetCount(count) {
+  assetCount.textContent = count === ads.length ? `共 ${ads.length} 張素材` : `顯示 ${count} / ${ads.length} 張素材`;
+  emptyState.hidden = count > 0;
+}
+
+function renderAds(list = ads) {
+  adGrid.innerHTML = list
     .map((ad, index) => {
       const savedCanvaUrl = storageGet(ad.canvaStorageKey);
       const canvaUrl = savedCanvaUrl !== null ? savedCanvaUrl : ad.canvaUrl || "";
@@ -310,15 +353,16 @@ function renderAds() {
       `;
     })
     .join("");
+  updateAssetCount(list.length);
 }
 
-function updatePreviews() {
+function updatePreviews({ persist = true } = {}) {
   ads.forEach((ad) => {
     const preview = document.querySelector(`[data-preview="${ad.id}"]`);
     if (preview) preview.value = composeCopy(ad);
   });
   updateProfileStatus();
-  saveProfile();
+  if (persist) saveProfile();
 }
 
 function updateProfileStatus() {
@@ -368,6 +412,17 @@ function showToast(message) {
   }, 2200);
 }
 
+function setTemporaryButtonState(button, label) {
+  const original = button.innerHTML;
+  button.classList.add("is-done");
+  button.innerHTML = `${icons.copy}${label}`;
+  window.clearTimeout(button.stateTimer);
+  button.stateTimer = window.setTimeout(() => {
+    button.innerHTML = original;
+    button.classList.remove("is-done");
+  }, 1500);
+}
+
 function openLightbox(ad) {
   lightboxImage.src = ad.image;
   lightboxImage.alt = ad.title;
@@ -390,9 +445,29 @@ function normalizeUrl(value) {
   return `https://${trimmed}`;
 }
 
+function applyFilters() {
+  const filteredAds = getFilteredAds();
+  renderAds(filteredAds);
+  updatePreviews({ persist: false });
+}
+
+function updateBackTopVisibility() {
+  backTop.hidden = window.scrollY < 520;
+}
+
 function bindEvents() {
   Object.values(fields).forEach((field) => {
     field.addEventListener("input", updatePreviews);
+  });
+
+  assetSearch.addEventListener("input", applyFilters);
+
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      activeFilter = button.dataset.filter;
+      filterButtons.forEach((item) => item.classList.toggle("is-active", item === button));
+      applyFilters();
+    });
   });
 
   clearProfile.addEventListener("click", () => {
@@ -425,6 +500,7 @@ function bindEvents() {
       if (!ad) return;
       try {
         await copyText(composeCopy(ad));
+        setTemporaryButtonState(copyButton, "已複製");
         showToast(`已複製：${ad.title}`);
       } catch {
         showToast("複製失敗，請手動選取內容");
@@ -468,9 +544,16 @@ function bindEvents() {
       closeImageLightbox();
     }
   });
+
+  backTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  window.addEventListener("scroll", updateBackTopVisibility, { passive: true });
 }
 
 restoreProfile();
 renderAds();
 bindEvents();
 updatePreviews();
+updateBackTopVisibility();

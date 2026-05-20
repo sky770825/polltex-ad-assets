@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Poll-tex Fb、ig 廣告素材中心</title>
-    <link rel="stylesheet" href="styles.css?v=17" />
+    <link rel="stylesheet" href="styles.css?v=18" />
   </head>
   <body>
     <header class="topbar">
@@ -70,7 +70,30 @@
         </button>
       </section>
 
+      <section class="asset-tools" aria-label="素材搜尋與篩選">
+        <label class="search-box">
+          <span>搜尋素材</span>
+          <input id="assetSearch" type="search" placeholder="輸入親子、長輩、通風、小黑蚊、空污..." autocomplete="off" />
+        </label>
+        <div class="filter-panel">
+          <div class="filter-tabs" aria-label="情境篩選">
+            <button class="filter-tab is-active" type="button" data-filter="all">全部</button>
+            <button class="filter-tab" type="button" data-filter="family">親子</button>
+            <button class="filter-tab" type="button" data-filter="senior">長輩</button>
+            <button class="filter-tab" type="button" data-filter="pet">寵物</button>
+            <button class="filter-tab" type="button" data-filter="breeze">通風</button>
+            <button class="filter-tab" type="button" data-filter="mosquito">防蚊</button>
+            <button class="filter-tab" type="button" data-filter="air">空污</button>
+          </div>
+          <p class="asset-count" id="assetCount">共 10 張素材</p>
+        </div>
+      </section>
+
       <section class="ad-grid" id="adGrid" aria-label="廣告素材清單"></section>
+      <div class="empty-state" id="emptyState" hidden>
+        <strong>找不到符合的素材</strong>
+        <span>換個關鍵字，或切回「全部」查看完整素材。</span>
+      </div>
     </main>
 
     <footer class="site-footer">
@@ -78,6 +101,12 @@
     </footer>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <button class="back-top" id="backTop" type="button" aria-label="回到頁面上方" hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 19V5M6 11l6-6 6 6" />
+      </svg>
+    </button>
 
     <div class="image-lightbox" id="imageLightbox" hidden>
       <button class="image-lightbox__close" id="closeLightbox" type="button" aria-label="關閉圖片預覽">
@@ -91,6 +120,6 @@
       <p class="image-lightbox__caption" id="lightboxCaption"></p>
     </div>
 
-    <script src="script.js?v=17"></script>
+    <script src="script.js?v=18"></script>
   </body>
 </html>
