@@ -1512,6 +1512,33 @@ body.lightbox-open {
     padding: 10px 0;
   }
 
+  .dashboard-page .topbar__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-page .dashboard-nav {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 48px;
+    gap: 8px;
+    width: 100%;
+    overflow: visible;
+  }
+
+  .dashboard-page .dashboard-nav .quick-link {
+    min-width: 0;
+    width: 100%;
+    min-height: 44px;
+    padding: 8px 10px;
+    white-space: nowrap;
+  }
+
+  .dashboard-page .dashboard-nav .quick-link--icon {
+    width: 48px;
+    min-width: 48px;
+    padding: 8px;
+  }
+
   .brand-block {
     grid-template-columns: 112px minmax(0, 1fr);
     gap: 9px;
