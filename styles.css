@@ -852,6 +852,10 @@ textarea:focus {
   gap: 10px;
 }
 
+.video-grid--compact {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
 .video-card {
   display: grid;
   gap: 8px;
@@ -884,6 +888,11 @@ textarea:focus {
   object-fit: cover;
   border-radius: 6px;
   background: #f1f2ed;
+}
+
+.video-card--short img {
+  aspect-ratio: 9 / 16;
+  object-position: center;
 }
 
 .status-strip {
