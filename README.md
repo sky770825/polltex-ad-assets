@@ -1,10 +1,10 @@
 # Poll-tex Fb、ig 廣告素材中心
 
-這是一個可直接開啟與部署的靜態網站，用來整理 Poll-tex Fb、ig 廣告素材。業務可以搜尋與篩選素材、下載圖片、放大預覽、開啟每張素材的 Canva 編輯連結，並在上方填入姓名、電話、LINE ID 後，一鍵複製已套好資料的廣告文案。
+這是一個可直接開啟與部署的靜態網站，用來集中 Poll-tex 南桃園展示中心的業務工具。主頁是功能儀表板，可進入廣告素材中心、報價試算器與教育訓練中心。
 
 ## 使用方式
 
-打開 `index.html` 即可使用。業務資料與 Canva 連結會儲存在同一台電腦的瀏覽器 localStorage。
+打開 `index.html` 即可進入功能儀表板。廣告素材中心在 `ads.html`，報價試算器在 `quote.html`，教育訓練中心在 `training.html`。廣告素材中心的業務資料與 Canva 連結會儲存在同一台電腦的瀏覽器 localStorage。
 
 ## GitHub Pages 部署
 
@@ -12,7 +12,10 @@
 
 ## 檔案
 
-- `index.html`：頁面結構
+- `index.html`：功能儀表板
+- `ads.html`：廣告素材中心
+- `quote.html`：防霾紗窗報價試算器
+- `training.html`：教育訓練中心
 - `styles.css`：視覺樣式與響應式版面
 - `script.js`：廣告文案、欄位同步、複製、Canva 連結儲存
 - `assets/`：廣告圖片與 Poll-tex logo
