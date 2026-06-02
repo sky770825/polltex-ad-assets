@@ -822,6 +822,70 @@ textarea:focus {
   text-align: center;
 }
 
+.video-group {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fbfcf8;
+}
+
+.video-group__head h4 {
+  margin: 0 0 5px;
+  color: var(--green);
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+.video-group__head p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.video-card {
+  display: grid;
+  gap: 8px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+  color: var(--green);
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1.25;
+  text-align: center;
+  text-decoration: none;
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.video-card:hover {
+  border-color: var(--line-strong);
+  background: var(--green-soft);
+}
+
+.video-card:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+.video-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 6px;
+  background: #f1f2ed;
+}
+
 .status-strip {
   display: flex;
   justify-content: space-between;
@@ -1388,7 +1452,8 @@ body.lightbox-open {
   .script-list,
   .case-grid,
   .price-note-grid,
-  .training-gallery {
+  .training-gallery,
+  .video-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -1730,7 +1795,8 @@ body.lightbox-open {
   .script-list > div,
   .case-card,
   .price-note-panel,
-  .price-note-card {
+  .price-note-card,
+  .video-group {
     padding: 12px;
   }
 
