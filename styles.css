@@ -755,6 +755,34 @@ textarea:focus {
   background: var(--green-soft);
 }
 
+.feedback-gallery-panel {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 14px;
+  border: 1px solid rgba(70, 95, 53, 0.18);
+  border-radius: var(--radius);
+  background: rgba(70, 95, 53, 0.06);
+}
+
+.feedback-gallery-panel__head h4 {
+  margin: 0 0 5px;
+  color: var(--green);
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+.feedback-gallery-panel__head p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.training-gallery--feedback {
+  margin-top: 0;
+}
+
 .training-lightbox {
   position: fixed;
   inset: 0;
@@ -1824,7 +1852,8 @@ body.lightbox-open {
   .case-card,
   .price-note-panel,
   .price-note-card,
-  .video-group {
+  .video-group,
+  .feedback-gallery-panel {
     padding: 12px;
   }
 
