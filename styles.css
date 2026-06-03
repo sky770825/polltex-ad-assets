@@ -25,11 +25,13 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
   margin: 0;
   min-width: 320px;
+  overflow-x: clip;
   background:
     linear-gradient(135deg, rgba(70, 95, 53, 0.08), transparent 34%),
     linear-gradient(225deg, rgba(200, 36, 43, 0.08), transparent 30%),
@@ -285,7 +287,7 @@ textarea:focus {
 
 .dashboard-stats {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
 }
 
@@ -781,6 +783,151 @@ textarea:focus {
 
 .training-gallery--feedback {
   margin-top: 0;
+}
+
+.research-entry-panel,
+.article-note {
+  display: grid;
+  gap: 12px;
+  margin-top: 14px;
+  padding: 14px;
+  border: 1px solid rgba(70, 95, 53, 0.18);
+  border-radius: var(--radius);
+  background: rgba(70, 95, 53, 0.06);
+}
+
+.research-entry-panel {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+}
+
+.research-entry-panel h4 {
+  margin: 0 0 5px;
+  color: var(--green);
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+.research-entry-panel p,
+.article-note p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.62;
+}
+
+.soft-link-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 9px 12px;
+  border: 1px solid rgba(70, 95, 53, 0.24);
+  border-radius: var(--radius);
+  background: var(--green);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 950;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+}
+
+.soft-link-button:hover {
+  background: #354b27;
+}
+
+.article-hero {
+  margin-bottom: 14px;
+}
+
+.article-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  gap: 14px;
+}
+
+.article-card {
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid rgba(185, 197, 173, 0.82);
+  border-radius: var(--radius);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.article-card--featured {
+  border-color: rgba(70, 95, 53, 0.28);
+}
+
+.article-card__top {
+  display: grid;
+  gap: 8px;
+}
+
+.article-card__top span {
+  justify-self: start;
+  padding: 5px 8px;
+  border-radius: var(--radius);
+  background: var(--green-soft);
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 950;
+  line-height: 1.2;
+}
+
+.article-card__top strong {
+  color: var(--ink);
+  font-size: clamp(20px, 1.8vw, 26px);
+  line-height: 1.18;
+}
+
+.article-card > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.article-use {
+  padding: 13px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fbfcf8;
+}
+
+.article-use h3 {
+  margin: 0 0 8px;
+  color: var(--green);
+  font-size: 15px;
+  line-height: 1.2;
+}
+
+.article-use ul {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding-left: 20px;
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.58;
+}
+
+.article-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.article-note {
+  margin-top: 14px;
+}
+
+.article-note strong {
+  color: var(--gold);
+  font-size: 15px;
+  line-height: 1.2;
 }
 
 .training-lightbox {
@@ -1507,6 +1654,7 @@ body.lightbox-open {
   .training-content-grid,
   .script-list,
   .case-grid,
+  .article-layout,
   .price-note-grid,
   .training-gallery,
   .video-grid {
@@ -1542,6 +1690,10 @@ body.lightbox-open {
 
   .quick-links::-webkit-scrollbar {
     display: none;
+  }
+
+  .topbar--simple .topbar__inner {
+    grid-template-columns: 1fr;
   }
 
   .quick-link {
@@ -1741,7 +1893,7 @@ body.lightbox-open {
   }
 
   .dashboard-stats {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 6px;
   }
 
@@ -1838,6 +1990,16 @@ body.lightbox-open {
     font-size: 20px;
   }
 
+  .training-hero h2,
+  .article-card__top strong,
+  .article-card > p,
+  .article-use li,
+  .article-note p,
+  .research-entry-panel p {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+
   .training-section__head p,
   .training-block ul,
   .training-block ol,
@@ -1853,8 +2015,20 @@ body.lightbox-open {
   .price-note-panel,
   .price-note-card,
   .video-group,
-  .feedback-gallery-panel {
+  .feedback-gallery-panel,
+  .research-entry-panel,
+  .article-card,
+  .article-note {
     padding: 12px;
+  }
+
+  .research-entry-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .soft-link-button {
+    width: 100%;
+    min-height: 42px;
   }
 
   .training-lightbox {
