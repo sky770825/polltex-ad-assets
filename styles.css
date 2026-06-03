@@ -868,7 +868,6 @@ textarea:focus {
   font-weight: 900;
   line-height: 1.25;
   text-align: center;
-  text-decoration: none;
   transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
 }
 
@@ -881,18 +880,38 @@ textarea:focus {
   transform: translateY(1px) scale(0.99);
 }
 
-.video-card img {
+.video-card iframe {
   display: block;
   width: 100%;
+  height: auto;
   aspect-ratio: 16 / 9;
-  object-fit: cover;
+  border: 0;
   border-radius: 6px;
   background: #f1f2ed;
 }
 
-.video-card--short img {
+.video-card--short iframe {
   aspect-ratio: 9 / 16;
-  object-position: center;
+}
+
+.video-card a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  padding: 6px 9px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.video-card a:hover {
+  border-color: var(--line-strong);
+  background: var(--green-soft);
 }
 
 .status-strip {
